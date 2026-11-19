@@ -150,7 +150,6 @@ const Layout = () => {
       {/* 修改密码弹窗 */}
       <Dialog open={changePasswordOpen} onOpenChange={setChangePasswordOpen}>
         <DialogContent>
-          DialogHeader
           <DialogHeader>
             <DialogTitle>修改密码</DialogTitle>
           </DialogHeader>
