@@ -41,7 +41,7 @@ function Toggle({
       className={cn(toggleVariants({ variant, size, className }))}
       {...props}
     />
-  );
+  )
 }
 
 export { Toggle, toggleVariants }

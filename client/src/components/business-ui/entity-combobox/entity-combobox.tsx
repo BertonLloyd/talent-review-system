@@ -61,7 +61,7 @@ export function EntityCombobox<
     prop: openProp,
     defaultProp: defaultOpen,
     onChange: handleOpenChange,
-  );
+  });
 
   // 使用自定义 hook 处理数据请求
   const { data, isFetching, isError, isSuccess, fetchStatus, refetch } =

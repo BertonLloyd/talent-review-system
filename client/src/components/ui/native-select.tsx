@@ -25,7 +25,7 @@ function NativeSelect({ className, ...props }: React.ComponentProps<"select">) {
         data-slot="native-select-icon"
       />
     </div>
-  );
+  )
 }
 
 function NativeSelectOption({ ...props }: React.ComponentProps<"option">) {
@@ -42,7 +42,7 @@ function NativeSelectOptGroup({
       className={cn(className)}
       {...props}
     />
-  );
+  )
 }
 
 export { NativeSelect, NativeSelectOptGroup, NativeSelectOption }

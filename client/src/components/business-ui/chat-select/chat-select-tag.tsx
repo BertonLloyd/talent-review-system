@@ -30,7 +30,6 @@ export const ChatSelectTag = ({
   className?: string;
   size?: ComboboxSize;
   disabled?: boolean;
-  isLoading?: boolean;
   /**
    * 是否正在加载群组信息（ID 模式下查询中）
    */
@@ -71,7 +70,6 @@ export const ChatSelectTag = ({
   });
 
   return (
-    ItemPill
     <ItemPill
       label={chatValue.name}
       avatar={avatarElement}

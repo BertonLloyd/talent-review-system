@@ -1,0 +1,1228 @@
+{
+  "paths": {
+    "/openapi/talent-review/summary": {
+      "get": {
+        "operationId": "getSummary",
+        "summary": "查询标准端人才盘点汇总（每位被盘人取最新一次评分）",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "reviewerKey",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "按评价人标识过滤",
+            "example": "reviewer_001"
+          },
+          {
+            "in": "query",
+            "name": "revieweeName",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "按被盘人姓名模糊过滤",
+            "example": "褚专员"
+          },
+          {
+            "in": "query",
+            "name": "gridCategory",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "super_star",
+                "performance_star",
+                "skilled_employee",
+                "potential_star",
+                "backbone",
+                "regular_employee",
+                "to_develop",
+                "gap_employee",
+                "problem_employee",
+                "red_line"
+              ]
+            },
+            "description": "按九宫格落位类别过滤",
+            "example": "backbone"
+          },
+          {
+            "in": "query",
+            "name": "dateFrom",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "评分日期起始（含），格式 YYYY-MM-DD",
+            "example": "2026-10-01"
+          },
+          {
+            "in": "query",
+            "name": "dateTo",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "评分日期结束（含），格式 YYYY-MM-DD",
+            "example": "2026-10-31"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["items", "total"],
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "标准端汇总项（最新一次评分）",
+                        "example": {
+                          "id": "f7b74cb1-b394-41a3-b3fe-7228493a79d3",
+                          "revieweeName": "沈专员",
+                          "department": "客服部",
+                          "reviewerName": "陈经理",
+                          "reviewerKey": "reviewer_001",
+                          "reviewDate": "2026-10-14",
+                          "valueAvg": 3,
+                          "abilityAvg": 4.33,
+                          "willAvg": 3,
+                          "performanceScore": 4.33,
+                          "gridCategory": "super_star",
+                          "isRedLine": false
+                        }
+                      }
+                    },
+                    "total": {
+                      "type": "integer",
+                      "description": "汇总条数",
+                      "example": 20
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/openapi/talent-review/records": {
+      "get": {
+        "operationId": "listRecords",
+        "summary": "查询标准端盘点评分明细（分页，含每次评分记录）",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "reviewerKey",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "按评价人标识过滤",
+            "example": "reviewer_001"
+          },
+          {
+            "in": "query",
+            "name": "revieweeName",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "按被盘人姓名模糊过滤",
+            "example": "褚专员"
+          },
+          {
+            "in": "query",
+            "name": "gridCategory",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "super_star",
+                "performance_star",
+                "skilled_employee",
+                "potential_star",
+                "backbone",
+                "regular_employee",
+                "to_develop",
+                "gap_employee",
+                "problem_employee",
+                "red_line"
+              ]
+            },
+            "description": "按九宫格落位类别过滤",
+            "example": "backbone"
+          },
+          {
+            "in": "query",
+            "name": "dateFrom",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "评分日期起始（含），格式 YYYY-MM-DD",
+            "example": "2026-10-01"
+          },
+          {
+            "in": "query",
+            "name": "dateTo",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "评分日期结束（含），格式 YYYY-MM-DD",
+            "example": "2026-10-31"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": { "type": "number" },
+            "description": "页码，从 1 开始，默认 1",
+            "example": 1
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "schema": { "type": "number" },
+            "description": "每页条数，默认 20，最大 200",
+            "example": 20
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["items", "total", "page", "pageSize"],
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "标准端盘点评分记录",
+                        "example": {
+                          "id": "d95bd1b2-e436-4e9f-b20f-ad52c9d69859",
+                          "reviewerName": "陈经理",
+                          "reviewerKey": "reviewer_001",
+                          "revieweeName": "卫专员",
+                          "department": "客服部",
+                          "valueCoCreate": { "score": 3, "evidence": "主动承担跨部门协作" },
+                          "valueCost": { "score": 3, "evidence": "有成本控制意识" },
+                          "valueOwnership": { "score": 3, "evidence": "对结果负责" },
+                          "abilityProfessional": { "score": 3, "evidence": "熟悉客服流程" },
+                          "abilityDelivery": { "score": 3, "evidence": "按时完成交付" },
+                          "abilityProblemSolve": { "score": 3, "evidence": "能独立处理投诉" },
+                          "willInitiative": { "score": 3, "evidence": "主动补位" },
+                          "willGrowth": { "score": 3, "evidence": "接受新任务" },
+                          "willStability": { "score": 3, "evidence": "情绪稳定" },
+                          "valueAvg": 3,
+                          "abilityAvg": 3,
+                          "willAvg": 3,
+                          "performanceScore": 3,
+                          "gridCategory": "backbone",
+                          "isRedLine": false,
+                          "reviewDate": "2026-10-14",
+                          "createdAt": "2026-10-14T08:32:57.000Z",
+                          "updatedAt": "2026-10-17T03:22:08.129Z",
+                          "isDeleted": false
+                        }
+                      }
+                    },
+                    "total": {
+                      "type": "integer",
+                      "description": "符合条件的记录总数",
+                      "example": 9
+                    },
+                    "page": {
+                      "type": "number",
+                      "description": "当前页码",
+                      "example": 1
+                    },
+                    "pageSize": {
+                      "type": "number",
+                      "description": "每页条数",
+                      "example": 20
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createRecord",
+        "summary": "新增一条标准端盘点评分记录（分数与均分由系统自动计算）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "reviewerKey",
+                  "revieweeName",
+                  "valueCoCreate",
+                  "valueCost",
+                  "valueOwnership",
+                  "abilityProfessional",
+                  "abilityDelivery",
+                  "abilityProblemSolve",
+                  "willInitiative",
+                  "willGrowth",
+                  "willStability"
+                ],
+                "properties": {
+                  "reviewerKey": {
+                    "type": "string",
+                    "description": "评价人标识，必须为系统内已配置的评价人",
+                    "example": "reviewer_001"
+                  },
+                  "revieweeName": {
+                    "type": "string",
+                    "description": "被盘人姓名，必须在该评价人名下",
+                    "example": "褚专员"
+                  },
+                  "valueCoCreate": {
+                    "type": "object",
+                    "description": "价值观-共创共享认同，1-5 分 + 事实依据",
+                    "required": ["score", "evidence"],
+                    "properties": {
+                      "score": { "type": "integer", "description": "评分，1-5", "example": 3 },
+                      "evidence": { "type": "string", "description": "事实依据", "example": "主动承担跨部门协作" }
+                    }
+                  },
+                  "valueCost": {
+                    "type": "object",
+                    "description": "价值观-成本利润意识",
+                    "required": ["score", "evidence"],
+                    "properties": {
+                      "score": { "type": "integer", "description": "评分，1-5", "example": 3 },
+                      "evidence": { "type": "string", "description": "事实依据", "example": "有成本控制意识" }
+                    }
+                  },
+                  "valueOwnership": {
+                    "type": "object",
+                    "description": "价值观-主人翁与协同",
+                    "required": ["score", "evidence"],
+                    "properties": {
+                      "score": { "type": "integer", "description": "评分，1-5", "example": 3 },
+                      "evidence": { "type": "string", "description": "事实依据", "example": "对结果负责" }
+                    }
+                  },
+                  "abilityProfessional": {
+                    "type": "object",
+                    "description": "能力-岗位专业胜任",
+                    "required": ["score", "evidence"],
+                    "properties": {
+                      "score": { "type": "integer", "description": "评分，1-5", "example": 4 },
+                      "evidence": { "type": "string", "description": "事实依据", "example": "熟悉客服流程" }
+                    }
+                  },
+                  "abilityDelivery": {
+                    "type": "object",
+                    "description": "能力-交付质量与效率",
+                    "required": ["score", "evidence"],
+                    "properties": {
+                      "score": { "type": "integer", "description": "评分，1-5", "example": 4 },
+                      "evidence": { "type": "string", "description": "事实依据", "example": "按时完成交付" }
+                    }
+                  },
+                  "abilityProblemSolve": {
+                    "type": "object",
+                    "description": "能力-问题解决",
+                    "required": ["score", "evidence"],
+                    "properties": {
+                      "score": { "type": "integer", "description": "评分，1-5", "example": 4 },
+                      "evidence": { "type": "string", "description": "事实依据", "example": "能独立处理投诉" }
+                    }
+                  },
+                  "willInitiative": {
+                    "type": "object",
+                    "description": "意愿-主动性",
+                    "required": ["score", "evidence"],
+                    "properties": {
+                      "score": { "type": "integer", "description": "评分，1-5", "example": 3 },
+                      "evidence": { "type": "string", "description": "事实依据", "example": "主动补位" }
+                    }
+                  },
+                  "willGrowth": {
+                    "type": "object",
+                    "description": "意愿-成长意愿",
+                    "required": ["score", "evidence"],
+                    "properties": {
+                      "score": { "type": "integer", "description": "评分，1-5", "example": 3 },
+                      "evidence": { "type": "string", "description": "事实依据", "example": "接受新任务" }
+                    }
+                  },
+                  "willStability": {
+                    "type": "object",
+                    "description": "意愿-稳定性与心态",
+                    "required": ["score", "evidence"],
+                    "properties": {
+                      "score": { "type": "integer", "description": "评分，1-5", "example": 3 },
+                      "evidence": { "type": "string", "description": "事实依据", "example": "情绪稳定" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "创建成功，返回包含自动计算结果的完整记录",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "标准端盘点评分记录（字段同明细列表元素）",
+                  "example": {
+                    "id": "d5778491-f895-4780-8aa4-8e1f9ecb4d56",
+                    "reviewerName": "陈经理",
+                    "reviewerKey": "reviewer_001",
+                    "revieweeName": "褚专员",
+                    "department": "客服部",
+                    "valueAvg": 3,
+                    "abilityAvg": 3,
+                    "willAvg": 3,
+                    "performanceScore": 3,
+                    "gridCategory": "backbone",
+                    "isRedLine": false,
+                    "reviewDate": "2026-10-27",
+                    "createdAt": "2026-10-27T08:23:51.952Z",
+                    "updatedAt": "2026-10-27T08:23:51.952Z",
+                    "isDeleted": false
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/openapi/talent-review/records/{id}": {
+      "get": {
+        "operationId": "getRecord",
+        "summary": "按 ID 查询标准端单条盘点评分记录",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "评分记录 ID（UUID）",
+            "example": "d95bd1b2-e436-4e9f-b20f-ad52c9d69859"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "reviewerName",
+                    "reviewerKey",
+                    "revieweeName",
+                    "department",
+                    "reviewDate",
+                    "createdAt",
+                    "updatedAt",
+                    "isDeleted",
+                    "valueCoCreate",
+                    "valueCost",
+                    "valueOwnership",
+                    "abilityProfessional",
+                    "abilityDelivery",
+                    "abilityProblemSolve",
+                    "willInitiative",
+                    "willGrowth",
+                    "willStability",
+                    "valueAvg",
+                    "abilityAvg",
+                    "willAvg",
+                    "performanceScore",
+                    "gridCategory",
+                    "isRedLine"
+                  ],
+                  "properties": {
+                    "id": { "type": "string", "description": "记录 ID", "example": "d95bd1b2-e436-4e9f-b20f-ad52c9d69859" },
+                    "reviewerName": { "type": "string", "description": "评价人姓名", "example": "陈经理" },
+                    "reviewerKey": { "type": "string", "description": "评价人标识", "example": "reviewer_001" },
+                    "revieweeName": { "type": "string", "description": "被盘人姓名", "example": "卫专员" },
+                    "department": { "type": "string", "description": "所属部门", "example": "客服部" },
+                    "reviewDate": { "type": "string", "description": "评分日期 YYYY-MM-DD", "example": "2026-10-14" },
+                    "createdAt": { "type": "string", "format": "date-time", "description": "创建时间", "example": "2026-10-14T08:32:57.000Z" },
+                    "updatedAt": { "type": "string", "format": "date-time", "description": "最后更新时间", "example": "2026-10-17T03:22:08.129Z" },
+                    "isDeleted": { "type": "boolean", "description": "是否已软删除", "example": false },
+                    "valueCoCreate": { "type": "object", "description": "价值观-共创共享认同（score 1-5 + evidence）", "properties": { "score": { "type": "integer", "example": 3 }, "evidence": { "type": "string", "example": "主动承担跨部门协作" } } },
+                    "valueCost": { "type": "object", "description": "价值观-成本利润意识（score 1-5 + evidence）", "properties": { "score": { "type": "integer", "example": 3 }, "evidence": { "type": "string", "example": "有成本控制意识" } } },
+                    "valueOwnership": { "type": "object", "description": "价值观-主人翁与协同（score 1-5 + evidence）", "properties": { "score": { "type": "integer", "example": 3 }, "evidence": { "type": "string", "example": "对结果负责" } } },
+                    "abilityProfessional": { "type": "object", "description": "能力-岗位专业胜任（score 1-5 + evidence）", "properties": { "score": { "type": "integer", "example": 3 }, "evidence": { "type": "string", "example": "熟悉客服流程" } } },
+                    "abilityDelivery": { "type": "object", "description": "能力-交付质量与效率（score 1-5 + evidence）", "properties": { "score": { "type": "integer", "example": 3 }, "evidence": { "type": "string", "example": "按时完成交付" } } },
+                    "abilityProblemSolve": { "type": "object", "description": "能力-问题解决（score 1-5 + evidence）", "properties": { "score": { "type": "integer", "example": 3 }, "evidence": { "type": "string", "example": "能独立处理投诉" } } },
+                    "willInitiative": { "type": "object", "description": "意愿-主动性（score 1-5 + evidence）", "properties": { "score": { "type": "integer", "example": 3 }, "evidence": { "type": "string", "example": "主动补位" } } },
+                    "willGrowth": { "type": "object", "description": "意愿-成长意愿（score 1-5 + evidence）", "properties": { "score": { "type": "integer", "example": 3 }, "evidence": { "type": "string", "example": "接受新任务" } } },
+                    "willStability": { "type": "object", "description": "意愿-稳定性与心态（score 1-5 + evidence）", "properties": { "score": { "type": "integer", "example": 3 }, "evidence": { "type": "string", "example": "情绪稳定" } } },
+                    "valueAvg": { "type": "number", "description": "价值观均分", "example": 3 },
+                    "abilityAvg": { "type": "number", "description": "能力均分", "example": 3 },
+                    "willAvg": { "type": "number", "description": "意愿均分", "example": 3 },
+                    "performanceScore": { "type": "number", "description": "当前表现分（能力×60%＋意愿×40%）", "example": 3 },
+                    "gridCategory": {
+                      "type": "string",
+                      "description": "九宫格落位类别标识",
+                      "enum": [
+                        "super_star",
+                        "performance_star",
+                        "skilled_employee",
+                        "potential_star",
+                        "backbone",
+                        "regular_employee",
+                        "to_develop",
+                        "gap_employee",
+                        "problem_employee",
+                        "red_line"
+                      ],
+                      "example": "backbone"
+                    },
+                    "isRedLine": { "type": "boolean", "description": "是否触发价值观红线", "example": false }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateRecord",
+        "summary": "更新标准端盘点评分记录（需传齐 9 个维度，均分与落位自动重算）",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "评分记录 ID（UUID）",
+            "example": "d95bd1b2-e436-4e9f-b20f-ad52c9d69859"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "valueCoCreate",
+                  "valueCost",
+                  "valueOwnership",
+                  "abilityProfessional",
+                  "abilityDelivery",
+                  "abilityProblemSolve",
+                  "willInitiative",
+                  "willGrowth",
+                  "willStability"
+                ],
+                "properties": {
+                  "valueCoCreate": { "type": "object", "description": "价值观-共创共享认同", "required": ["score", "evidence"], "properties": { "score": { "type": "integer", "description": "评分，1-5", "example": 5 }, "evidence": { "type": "string", "description": "事实依据", "example": "牵头跨部门项目" } } },
+                  "valueCost": { "type": "object", "description": "价值观-成本利润意识", "required": ["score", "evidence"], "properties": { "score": { "type": "integer", "description": "评分，1-5", "example": 3 }, "evidence": { "type": "string", "description": "事实依据", "example": "有成本控制意识" } } },
+                  "valueOwnership": { "type": "object", "description": "价值观-主人翁与协同", "required": ["score", "evidence"], "properties": { "score": { "type": "integer", "description": "评分，1-5", "example": 3 }, "evidence": { "type": "string", "description": "事实依据", "example": "对结果负责" } } },
+                  "abilityProfessional": { "type": "object", "description": "能力-岗位专业胜任", "required": ["score", "evidence"], "properties": { "score": { "type": "integer", "description": "评分，1-5", "example": 4 }, "evidence": { "type": "string", "description": "事实依据", "example": "专业能力达标" } } },
+                  "abilityDelivery": { "type": "object", "description": "能力-交付质量与效率", "required": ["score", "evidence"], "properties": { "score": { "type": "integer", "description": "评分，1-5", "example": 4 }, "evidence": { "type": "string", "description": "事实依据", "example": "按时完成交付" } } },
+                  "abilityProblemSolve": { "type": "object", "description": "能力-问题解决", "required": ["score", "evidence"], "properties": { "score": { "type": "integer", "description": "评分，1-5", "example": 4 }, "evidence": { "type": "string", "description": "事实依据", "example": "能独立处理投诉" } } },
+                  "willInitiative": { "type": "object", "description": "意愿-主动性", "required": ["score", "evidence"], "properties": { "score": { "type": "integer", "description": "评分，1-5", "example": 3 }, "evidence": { "type": "string", "description": "事实依据", "example": "主动补位" } } },
+                  "willGrowth": { "type": "object", "description": "意愿-成长意愿", "required": ["score", "evidence"], "properties": { "score": { "type": "integer", "description": "评分，1-5", "example": 3 }, "evidence": { "type": "string", "description": "事实依据", "example": "接受新任务" } } },
+                  "willStability": { "type": "object", "description": "意愿-稳定性与心态", "required": ["score", "evidence"], "properties": { "score": { "type": "integer", "description": "评分，1-5", "example": 3 }, "evidence": { "type": "string", "description": "事实依据", "example": "情绪稳定" } } }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "更新成功，返回重算后的完整记录",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "标准端盘点评分记录（字段同明细列表元素）",
+                  "example": {
+                    "id": "d95bd1b2-e436-4e9f-b20f-ad52c9d69859",
+                    "revieweeName": "卫专员",
+                    "reviewerKey": "reviewer_001",
+                    "valueAvg": 3.67,
+                    "abilityAvg": 4,
+                    "willAvg": 3.33,
+                    "performanceScore": 3.73,
+                    "gridCategory": "potential_star",
+                    "isRedLine": false,
+                    "updatedAt": "2026-10-27T08:24:21.263Z"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/openapi/position-review/summary": {
+      "get": {
+        "operationId": "getSummary",
+        "summary": "查询分岗端人才盘点汇总（每位被盘人取最新一次评分）",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "reviewerKey",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "按评价人标识过滤",
+            "example": "wang_zhu_guan"
+          },
+          {
+            "in": "query",
+            "name": "revieweeName",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "按被盘人姓名模糊过滤",
+            "example": "张专员"
+          },
+          {
+            "in": "query",
+            "name": "departmentName",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "按部门名称过滤",
+            "example": "运营一部"
+          },
+          {
+            "in": "query",
+            "name": "positionType",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "professional",
+                "service",
+                "operations",
+                "operations_lead",
+                "consultant",
+                "marketing",
+                "team_lead"
+              ]
+            },
+            "description": "按岗位类型过滤",
+            "example": "professional"
+          },
+          {
+            "in": "query",
+            "name": "gridCategory",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "super_star",
+                "performance_star",
+                "skilled_employee",
+                "potential_star",
+                "backbone",
+                "regular_employee",
+                "to_develop",
+                "gap_employee",
+                "problem_employee",
+                "red_line"
+              ]
+            },
+            "description": "按九宫格落位类别过滤",
+            "example": "super_star"
+          },
+          {
+            "in": "query",
+            "name": "dateFrom",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "评分日期起始（含），格式 YYYY-MM-DD",
+            "example": "2026-10-01"
+          },
+          {
+            "in": "query",
+            "name": "dateTo",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "评分日期结束（含），格式 YYYY-MM-DD",
+            "example": "2026-10-31"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["items", "total"],
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "分岗端汇总项（最新一次评分）",
+                        "example": {
+                          "id": "db979de3-f175-4ecd-bbba-d61cd9c757d0",
+                          "revieweeName": "张专员",
+                          "departmentName": "运营一部",
+                          "department": "运营部",
+                          "positionType": "professional",
+                          "reviewerName": "王主管",
+                          "reviewerKey": "wang_zhu_guan",
+                          "reviewDate": "2026-10-21",
+                          "performanceScore": 4,
+                          "valueAvg": 4.33,
+                          "willAvg": 4.33,
+                          "comprehensiveScore": 4.33,
+                          "totalScore": 4.1,
+                          "gridCategory": "super_star",
+                          "isRedLine": false
+                        }
+                      }
+                    },
+                    "total": {
+                      "type": "integer",
+                      "description": "汇总条数",
+                      "example": 75
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/openapi/position-review/records": {
+      "get": {
+        "operationId": "listRecords",
+        "summary": "查询分岗端盘点评分明细（分页，含每次评分记录）",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "reviewerKey",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "按评价人标识过滤",
+            "example": "wang_zhu_guan"
+          },
+          {
+            "in": "query",
+            "name": "revieweeName",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "按被盘人姓名模糊过滤",
+            "example": "张专员"
+          },
+          {
+            "in": "query",
+            "name": "departmentName",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "按部门名称过滤",
+            "example": "运营一部"
+          },
+          {
+            "in": "query",
+            "name": "positionType",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "professional",
+                "service",
+                "operations",
+                "operations_lead",
+                "consultant",
+                "marketing",
+                "team_lead"
+              ]
+            },
+            "description": "按岗位类型过滤",
+            "example": "professional"
+          },
+          {
+            "in": "query",
+            "name": "gridCategory",
+            "required": false,
+            "schema": {
+              "type": "string",
+              "enum": [
+                "super_star",
+                "performance_star",
+                "skilled_employee",
+                "potential_star",
+                "backbone",
+                "regular_employee",
+                "to_develop",
+                "gap_employee",
+                "problem_employee",
+                "red_line"
+              ]
+            },
+            "description": "按九宫格落位类别过滤",
+            "example": "super_star"
+          },
+          {
+            "in": "query",
+            "name": "dateFrom",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "评分日期起始（含），格式 YYYY-MM-DD",
+            "example": "2026-10-01"
+          },
+          {
+            "in": "query",
+            "name": "dateTo",
+            "required": false,
+            "schema": { "type": "string" },
+            "description": "评分日期结束（含），格式 YYYY-MM-DD",
+            "example": "2026-10-31"
+          },
+          {
+            "in": "query",
+            "name": "page",
+            "required": false,
+            "schema": { "type": "number" },
+            "description": "页码，从 1 开始，默认 1",
+            "example": 1
+          },
+          {
+            "in": "query",
+            "name": "pageSize",
+            "required": false,
+            "schema": { "type": "number" },
+            "description": "每页条数，默认 20，最大 200",
+            "example": 20
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": ["items", "total", "page", "pageSize"],
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "description": "分岗端盘点评分记录",
+                        "example": {
+                          "id": "db979de3-f175-4ecd-bbba-d61cd9c757d0",
+                          "reviewerKey": "wang_zhu_guan",
+                          "reviewerName": "王主管",
+                          "revieweeName": "张专员",
+                          "departmentName": "运营一部",
+                          "department": "运营部",
+                          "positionType": "professional",
+                          "performanceItems": {
+                            "professional_tier": { "score": 4, "evidence": "高级专员职称" },
+                            "patient_referral": { "score": 4, "evidence": "客户转介绍率达标" }
+                          },
+                          "valueCoCreateScore": 4,
+                          "valueCoCreateEvidence": "主动配合部门运营",
+                          "valueCostScore": 4,
+                          "valueCostEvidence": "控制办公成本",
+                          "valueOwnershipScore": 5,
+                          "valueOwnershipEvidence": "对服务质量负责",
+                          "willInitiativeScore": 4,
+                          "willInitiativeEvidence": "主动加班",
+                          "willGrowthScore": 4,
+                          "willGrowthEvidence": "参加业务培训",
+                          "willStabilityScore": 5,
+                          "willStabilityEvidence": "任职稳定",
+                          "performanceScore": 4,
+                          "valueAvg": 4.33,
+                          "willAvg": 4.33,
+                          "comprehensiveScore": 4.33,
+                          "totalScore": 4.1,
+                          "gridCategory": "super_star",
+                          "isRedLine": false,
+                          "reviewDate": "2026-10-21",
+                          "createdAt": "2026-10-21T02:11:03.000Z",
+                          "updatedAt": "2026-10-21T02:11:03.000Z",
+                          "isDeleted": false
+                        }
+                      }
+                    },
+                    "total": {
+                      "type": "integer",
+                      "description": "符合条件的记录总数",
+                      "example": 120
+                    },
+                    "page": {
+                      "type": "number",
+                      "description": "当前页码",
+                      "example": 1
+                    },
+                    "pageSize": {
+                      "type": "number",
+                      "description": "每页条数",
+                      "example": 20
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createRecord",
+        "summary": "新增一条分岗端盘点评分记录（绩效分、综合分与落位由系统自动计算）",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "reviewerKey",
+                  "revieweeName",
+                  "departmentName",
+                  "department",
+                  "positionType",
+                  "performanceItems",
+                  "valueCoCreate",
+                  "valueCost",
+                  "valueOwnership",
+                  "willInitiative",
+                  "willGrowth",
+                  "willStability"
+                ],
+                "properties": {
+                  "reviewerKey": {
+                    "type": "string",
+                    "description": "评价人标识，必须为系统内已配置的分岗端评价人",
+                    "example": "wang_zhu_guan"
+                  },
+                  "revieweeName": {
+                    "type": "string",
+                    "description": "被盘人姓名，必须在该评价人名下",
+                    "example": "张专员"
+                  },
+                  "departmentName": {
+                    "type": "string",
+                    "description": "部门名称（落库以该评价人所属部门为准）",
+                    "example": "运营一部"
+                  },
+                  "department": {
+                    "type": "string",
+                    "description": "部门名称（落库以被盘人配置部门为准）",
+                    "example": "运营部"
+                  },
+                  "positionType": {
+                    "type": "string",
+                    "description": "岗位类型，决定绩效项权重",
+                    "enum": [
+                      "professional",
+                      "service",
+                      "operations",
+                      "operations_lead",
+                      "consultant",
+                      "marketing",
+                      "team_lead"
+                    ],
+                    "example": "professional"
+                  },
+                  "performanceItems": {
+                    "type": "object",
+                    "description": "绩效项评分，键为岗位对应绩效项编码，值为分数与事实依据",
+                    "example": {
+                      "professional_tier": { "score": 4, "evidence": "高级专员职称" },
+                      "patient_referral": { "score": 4, "evidence": "客户转介绍率达标" }
+                    }
+                  },
+                  "valueCoCreate": {
+                    "type": "object",
+                    "description": "价值观-共创共享认同",
+                    "required": ["score", "evidence"],
+                    "properties": {
+                      "score": { "type": "integer", "description": "评分，1-5", "example": 4 },
+                      "evidence": { "type": "string", "description": "事实依据", "example": "主动配合部门运营" }
+                    }
+                  },
+                  "valueCost": {
+                    "type": "object",
+                    "description": "价值观-成本利润意识",
+                    "required": ["score", "evidence"],
+                    "properties": {
+                      "score": { "type": "integer", "description": "评分，1-5", "example": 4 },
+                      "evidence": { "type": "string", "description": "事实依据", "example": "控制办公成本" }
+                    }
+                  },
+                  "valueOwnership": {
+                    "type": "object",
+                    "description": "价值观-主人翁与协同",
+                    "required": ["score", "evidence"],
+                    "properties": {
+                      "score": { "type": "integer", "description": "评分，1-5", "example": 5 },
+                      "evidence": { "type": "string", "description": "事实依据", "example": "对服务质量负责" }
+                    }
+                  },
+                  "willInitiative": {
+                    "type": "object",
+                    "description": "意愿-主动性",
+                    "required": ["score", "evidence"],
+                    "properties": {
+                      "score": { "type": "integer", "description": "评分，1-5", "example": 4 },
+                      "evidence": { "type": "string", "description": "事实依据", "example": "主动加班" }
+                    }
+                  },
+                  "willGrowth": {
+                    "type": "object",
+                    "description": "意愿-成长意愿",
+                    "required": ["score", "evidence"],
+                    "properties": {
+                      "score": { "type": "integer", "description": "评分，1-5", "example": 4 },
+                      "evidence": { "type": "string", "description": "事实依据", "example": "参加业务培训" }
+                    }
+                  },
+                  "willStability": {
+                    "type": "object",
+                    "description": "意愿-稳定性与心态",
+                    "required": ["score", "evidence"],
+                    "properties": {
+                      "score": { "type": "integer", "description": "评分，1-5", "example": 5 },
+                      "evidence": { "type": "string", "description": "事实依据", "example": "任职稳定" }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "创建成功，返回包含自动计算结果的完整记录",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "分岗端盘点评分记录（字段同明细列表元素）",
+                  "example": {
+                    "id": "5b0f1c2e-8f4a-4c31-9c11-7a2b3d4e5f60",
+                    "revieweeName": "张专员",
+                    "departmentName": "运营一部",
+                    "positionType": "professional",
+                    "performanceScore": 4,
+                    "valueAvg": 4.33,
+                    "willAvg": 4.33,
+                    "comprehensiveScore": 4.33,
+                    "totalScore": 4.1,
+                    "gridCategory": "super_star",
+                    "isRedLine": false,
+                    "reviewDate": "2026-10-27",
+                    "createdAt": "2026-10-27T08:30:00.000Z",
+                    "updatedAt": "2026-10-27T08:30:00.000Z",
+                    "isDeleted": false
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/openapi/position-review/records/{id}": {
+      "get": {
+        "operationId": "getRecord",
+        "summary": "按 ID 查询分岗端单条盘点评分记录",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "评分记录 ID（UUID）",
+            "example": "db979de3-f175-4ecd-bbba-d61cd9c757d0"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "ok",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "id",
+                    "reviewerKey",
+                    "reviewerName",
+                    "revieweeName",
+                    "departmentName",
+                    "department",
+                    "positionType",
+                    "performanceItems",
+                    "valueCoCreateScore",
+                    "valueCoCreateEvidence",
+                    "valueCostScore",
+                    "valueCostEvidence",
+                    "valueOwnershipScore",
+                    "valueOwnershipEvidence",
+                    "willInitiativeScore",
+                    "willInitiativeEvidence",
+                    "willGrowthScore",
+                    "willGrowthEvidence",
+                    "willStabilityScore",
+                    "willStabilityEvidence",
+                    "performanceScore",
+                    "valueAvg",
+                    "willAvg",
+                    "comprehensiveScore",
+                    "totalScore",
+                    "gridCategory",
+                    "isRedLine",
+                    "reviewDate",
+                    "createdAt",
+                    "updatedAt",
+                    "isDeleted"
+                  ],
+                  "properties": {
+                    "id": { "type": "string", "description": "记录 ID", "example": "db979de3-f175-4ecd-bbba-d61cd9c757d0" },
+                    "reviewerKey": { "type": "string", "description": "评价人标识", "example": "wang_zhu_guan" },
+                    "reviewerName": { "type": "string", "description": "评价人姓名", "example": "王主管" },
+                    "revieweeName": { "type": "string", "description": "被盘人姓名", "example": "张专员" },
+                    "departmentName": { "type": "string", "description": "部门名称", "example": "运营一部" },
+                    "department": { "type": "string", "description": "部门名称", "example": "运营部" },
+                    "positionType": {
+                      "type": "string",
+                      "description": "岗位类型",
+                      "enum": [
+                        "professional",
+                        "service",
+                        "operations",
+                        "operations_lead",
+                        "consultant",
+                        "marketing",
+                        "team_lead"
+                      ],
+                      "example": "professional"
+                    },
+                    "performanceItems": {
+                      "type": "object",
+                      "description": "绩效项评分明细，键为绩效项编码",
+                      "example": {
+                        "professional_tier": { "score": 4, "evidence": "高级专员职称" },
+                        "patient_referral": { "score": 4, "evidence": "客户转介绍率达标" }
+                      }
+                    },
+                    "valueCoCreateScore": { "type": "integer", "description": "价值观-共创共享认同得分", "example": 4 },
+                    "valueCoCreateEvidence": { "type": "string", "description": "价值观-共创共享认同事实依据", "example": "主动配合部门运营" },
+                    "valueCostScore": { "type": "integer", "description": "价值观-成本利润意识得分", "example": 4 },
+                    "valueCostEvidence": { "type": "string", "description": "价值观-成本利润意识事实依据", "example": "控制办公成本" },
+                    "valueOwnershipScore": { "type": "integer", "description": "价值观-主人翁与协同得分", "example": 5 },
+                    "valueOwnershipEvidence": { "type": "string", "description": "价值观-主人翁与协同事实依据", "example": "对服务质量负责" },
+                    "willInitiativeScore": { "type": "integer", "description": "意愿-主动性得分", "example": 4 },
+                    "willInitiativeEvidence": { "type": "string", "description": "意愿-主动性事实依据", "example": "主动加班" },
+                    "willGrowthScore": { "type": "integer", "description": "意愿-成长意愿得分", "example": 4 },
+                    "willGrowthEvidence": { "type": "string", "description": "意愿-成长意愿事实依据", "example": "参加业务培训" },
+                    "willStabilityScore": { "type": "integer", "description": "意愿-稳定性与心态得分", "example": 5 },
+                    "willStabilityEvidence": { "type": "string", "description": "意愿-稳定性与心态事实依据", "example": "任职稳定" },
+                    "performanceScore": { "type": "number", "description": "绩效得分（按岗位绩效项权重加权）", "example": 4 },
+                    "valueAvg": { "type": "number", "description": "价值观均分", "example": 4.33 },
+                    "willAvg": { "type": "number", "description": "意愿均分", "example": 4.33 },
+                    "comprehensiveScore": { "type": "number", "description": "综合得分", "example": 4.33 },
+                    "totalScore": { "type": "number", "description": "总分（绩效与综合加权）", "example": 4.1 },
+                    "gridCategory": {
+                      "type": "string",
+                      "description": "九宫格落位类别标识",
+                      "enum": [
+                        "super_star",
+                        "performance_star",
+                        "skilled_employee",
+                        "potential_star",
+                        "backbone",
+                        "regular_employee",
+                        "to_develop",
+                        "gap_employee",
+                        "problem_employee",
+                        "red_line"
+                      ],
+                      "example": "super_star"
+                    },
+                    "isRedLine": { "type": "boolean", "description": "是否触发价值观红线", "example": false },
+                    "reviewDate": { "type": "string", "description": "评分日期 YYYY-MM-DD", "example": "2026-10-21" },
+                    "createdAt": { "type": "string", "format": "date-time", "description": "创建时间", "example": "2026-10-21T02:11:03.000Z" },
+                    "updatedAt": { "type": "string", "format": "date-time", "description": "最后更新时间", "example": "2026-10-21T02:11:03.000Z" },
+                    "isDeleted": { "type": "boolean", "description": "是否已软删除", "example": false }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateRecord",
+        "summary": "更新分岗端盘点评分记录（仅更新传入的维度，未传字段保持原值）",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "id",
+            "required": true,
+            "schema": { "type": "string" },
+            "description": "评分记录 ID（UUID）",
+            "example": "db979de3-f175-4ecd-bbba-d61cd9c757d0"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "performanceItems": {
+                    "type": "object",
+                    "description": "绩效项评分明细（整体替换）",
+                    "example": {
+                      "professional_tier": { "score": 5, "evidence": "资深专员职称" },
+                      "patient_referral": { "score": 4, "evidence": "客户转介绍率达标" }
+                    }
+                  },
+                  "valueCoCreate": { "type": "object", "description": "价值观-共创共享认同", "required": ["score", "evidence"], "properties": { "score": { "type": "integer", "description": "评分，1-5", "example": 4 }, "evidence": { "type": "string", "description": "事实依据", "example": "主动配合部门运营" } } },
+                  "valueCost": { "type": "object", "description": "价值观-成本利润意识", "required": ["score", "evidence"], "properties": { "score": { "type": "integer", "description": "评分，1-5", "example": 4 }, "evidence": { "type": "string", "description": "事实依据", "example": "控制办公成本" } } },
+                  "valueOwnership": { "type": "object", "description": "价值观-主人翁与协同", "required": ["score", "evidence"], "properties": { "score": { "type": "integer", "description": "评分，1-5", "example": 5 }, "evidence": { "type": "string", "description": "事实依据", "example": "对服务质量负责" } } },
+                  "willInitiative": { "type": "object", "description": "意愿-主动性", "required": ["score", "evidence"], "properties": { "score": { "type": "integer", "description": "评分，1-5", "example": 4 }, "evidence": { "type": "string", "description": "事实依据", "example": "主动加班" } } },
+                  "willGrowth": { "type": "object", "description": "意愿-成长意愿", "required": ["score", "evidence"], "properties": { "score": { "type": "integer", "description": "评分，1-5", "example": 4 }, "evidence": { "type": "string", "description": "事实依据", "example": "参加业务培训" } } },
+                  "willStability": { "type": "object", "description": "意愿-稳定性与心态", "required": ["score", "evidence"], "properties": { "score": { "type": "integer", "description": "评分，1-5", "example": 5 }, "evidence": { "type": "string", "description": "事实依据", "example": "任职稳定" } } }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "更新成功，返回重算后的完整记录",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "description": "分岗端盘点评分记录（字段同明细列表元素）",
+                  "example": {
+                    "id": "db979de3-f175-4ecd-bbba-d61cd9c757d0",
+                    "revieweeName": "张专员",
+                    "departmentName": "运营一部",
+                    "performanceScore": 4.6,
+                    "valueAvg": 4.33,
+                    "willAvg": 4.33,
+                    "comprehensiveScore": 4.33,
+                    "totalScore": 4.44,
+                    "gridCategory": "super_star",
+                    "isRedLine": false,
+                    "updatedAt": "2026-10-27T08:35:00.000Z"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -489,7 +489,7 @@ export async function getApiKey(): Promise<{ apiKey: string }> {
   return res.data;
 }
 
-export async function resetApiKey(): Promise<{ success: true }> {
+export async function resetApiKey(): Promise<{ apiKey: string }> {
   try {
     const res = await axiosForBackend.post(`${CONFIG_BASE}/api-key/reset`);
     return res.data;

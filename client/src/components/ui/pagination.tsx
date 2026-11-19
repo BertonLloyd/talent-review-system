@@ -17,7 +17,7 @@ function Pagination({ className, ...props }: React.ComponentProps<"nav">) {
       className={cn("mx-auto flex w-full justify-center", className)}
       {...props}
     />
-  );
+  )
 }
 
 function PaginationContent({
@@ -30,7 +30,7 @@ function PaginationContent({
       className={cn("flex flex-row items-center gap-1", className)}
       {...props}
     />
-  );
+  )
 }
 
 function PaginationItem({ ...props }: React.ComponentProps<"li">) {
@@ -62,7 +62,7 @@ function PaginationLink({
       )}
       {...props}
     />
-  );
+  )
 }
 
 function PaginationPrevious({
@@ -79,7 +79,7 @@ function PaginationPrevious({
       <ChevronLeftIcon />
       <span className="hidden">Previous</span>
     </PaginationLink>
-  );
+  )
 }
 
 function PaginationNext({
@@ -96,7 +96,7 @@ function PaginationNext({
       <span className="hidden">Next</span>
       <ChevronRightIcon />
     </PaginationLink>
-  );
+  )
 }
 
 function PaginationEllipsis({
@@ -113,7 +113,7 @@ function PaginationEllipsis({
       <MoreHorizontalIcon className="size-4" />
       <span className="sr-only">More pages</span>
     </span>
-  );
+  )
 }
 
 export {

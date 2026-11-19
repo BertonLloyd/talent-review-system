@@ -51,7 +51,7 @@ export type InferValue<
 
 type ChatSelectBaseProps<
   V extends ValueType = 'string',
-  M extends boolean,
+  M extends boolean = false,
 > = Omit<
   BaseEntitySelectProps<Chat>,
   'value' | 'defaultValue' | 'onChange'

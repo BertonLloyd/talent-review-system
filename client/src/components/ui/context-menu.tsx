@@ -39,7 +39,7 @@ function ContextMenuPortal({
 function ContextMenuSub({
   ...props
 }: React.ComponentProps<typeof ContextMenuPrimitive.Sub>) {
-  return <ContextMenuPrimitive.Sub data-slot="context-menu" {...props} />
+  return <ContextMenuPrimitive.Sub data-slot="context-menu-sub" {...props} />
 }
 
 function ContextMenuRadioGroup({
@@ -266,6 +266,7 @@ function ContextMenuLabel({
   return (
     <ContextMenuPrimitive.Label
       data-slot="context-menu-label"
+      data-inset={inset}
       className={cn(
         "text-foreground px-2 py-1.5 text-sm font-medium data-[inset]:pl-8",
         className

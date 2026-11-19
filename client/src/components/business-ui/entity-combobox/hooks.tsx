@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react';
 export { useEntityComboboxContext } from '@client/src/components/business-ui/entity-combobox/context';
 
 export function useDebounce<T>(value: T, delay: number): T {
-  const [debouncedValue, setDebounced] = useState(value);
+  const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {
     const handler = setTimeout(() => {

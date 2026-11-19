@@ -22,7 +22,7 @@ import type { User } from '@client/src/components/business-ui/types/user';
  */
 function userToItemValue(user: User, accountType: AccountType): UserSelectItemValue {
   return {
-    id: accountType === 'lark' ? (user.larkUserId || user.user_id || '') : (user.user_id || larkUserId || ''),
+    id: accountType === 'lark' ? (user.larkUserId || user.user_id || '') : (user.user_id || user.larkUserId || ''),
     name: getI18nText(user.name) || '未知用户',
     avatar: user.avatar,
     raw: user,

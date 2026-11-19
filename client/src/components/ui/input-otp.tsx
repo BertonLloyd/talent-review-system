@@ -23,7 +23,7 @@ function InputOTP({
       className={cn("disabled:cursor-not-allowed", className)}
       {...props}
     />
-  );
+  )
 }
 
 function InputOTPGroup({ className, ...props }: React.ComponentProps<"div">) {
@@ -33,7 +33,7 @@ function InputOTPGroup({ className, ...props }: React.ComponentProps<"div">) {
       className={cn("flex items-center", className)}
       {...props}
     />
-  );
+  )
 }
 
 function InputOTPSlot({
@@ -63,7 +63,7 @@ function InputOTPSlot({
         </div>
       )}
     </div>
-  );
+  )
 }
 
 function InputOTPSeparator({ ...props }: React.ComponentProps<"div">) {
@@ -71,7 +71,7 @@ function InputOTPSeparator({ ...props }: React.ComponentProps<"div">) {
     <div data-slot="input-otp-separator" role="separator" {...props}>
       <MinusIcon />
     </div>
-  );
+  )
 }
 
 export { InputOTP, InputOTPGroup, InputOTPSlot, InputOTPSeparator }

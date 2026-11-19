@@ -148,7 +148,7 @@ function SidebarProvider({
         </div>
       </TooltipProvider>
     </SidebarContext.Provider>
-  );
+  )
 }
 
 function Sidebar({
@@ -177,7 +177,7 @@ function Sidebar({
       >
         {children}
       </div>
-    );
+    )
   }
 
   if (isMobile) {
@@ -202,7 +202,7 @@ function Sidebar({
           <div className="flex h-full w-full flex-col">{children}</div>
         </SheetContent>
       </Sheet>
-    );
+    )
   }
 
   return (
@@ -250,7 +250,7 @@ function Sidebar({
         </div>
       </div>
     </div>
-  );
+  )
 }
 
 function SidebarTrigger({
@@ -276,7 +276,7 @@ function SidebarTrigger({
       <PanelLeftIcon />
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
-  );
+  )
 }
 
 function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
@@ -294,14 +294,14 @@ function SidebarRail({ className, ...props }: React.ComponentProps<"button">) {
         "hover:after:bg-sidebar-border absolute inset-y-0 z-20 hidden w-4 -translate-x-1/2 transition-all ease-linear group-data-[side=left]:-right-4 group-data-[side=right]:left-0 after:absolute after:inset-y-0 after:left-1/2 after:w-[2px] sm:flex",
         "in-data-[side=left]:cursor-w-resize in-data-[side=right]:cursor-e-resize",
         "[[data-side=left][data-state=collapsed]_&]:cursor-e-resize [[data-side=right][data-state=collapsed]_&]:cursor-w-resize",
-        "hover:group-data-[collapsible=offcanvas]:bg-sidebar group-data-[collapsible=offcanvas]:translate-x-0 group-[collapsible=offcanvas]:after:left-full",
+        "hover:group-data-[collapsible=offcanvas]:bg-sidebar group-data-[collapsible=offcanvas]:translate-x-0 group-data-[collapsible=offcanvas]:after:left-full",
         "[[data-side=left][data-collapsible=offcanvas]_&]:-right-2",
         "[[data-side=right][data-collapsible=offcanvas]_&]:-left-2",
         className
       )}
       {...props}
     />
-  );
+  )
 }
 
 function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
@@ -315,7 +315,7 @@ function SidebarInset({ className, ...props }: React.ComponentProps<"main">) {
       )}
       {...props}
     />
-  );
+  )
 }
 
 function SidebarInput({
@@ -329,13 +329,10 @@ function SidebarInput({
       className={cn("bg-background h-8 w-full shadow-none", className)}
       {...props}
     />
-  );
+  )
 }
 
-function SidebarHeader({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+function SidebarHeader({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="sidebar-header"
@@ -343,13 +340,10 @@ function SidebarHeader({
       className={cn("flex flex-col gap-2 p-2", className)}
       {...props}
     />
-  );
+  )
 }
 
-function SidebarFooter({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+function SidebarFooter({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="sidebar-footer"
@@ -357,7 +351,7 @@ function SidebarFooter({
       className={cn("flex flex-col gap-2 p-2", className)}
       {...props}
     />
-  );
+  )
 }
 
 function SidebarSeparator({
@@ -371,13 +365,10 @@ function SidebarSeparator({
       className={cn("bg-sidebar-border mx-2 w-auto", className)}
       {...props}
     />
-  );
+  )
 }
 
-function SidebarContent({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+function SidebarContent({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="sidebar-content"
@@ -388,13 +379,10 @@ function SidebarContent({
       )}
       {...props}
     />
-  );
+  )
 }
 
-function SidebarGroup({
-  className,
-  ...props
-}: React.ComponentProps<"div">) {
+function SidebarGroup({ className, ...props }: React.ComponentProps<"div">) {
   return (
     <div
       data-slot="sidebar-group"
@@ -402,7 +390,7 @@ function SidebarGroup({
       className={cn("relative flex w-full min-w-0 flex-col p-2", className)}
       {...props}
     />
-  );
+  )
 }
 
 function SidebarGroupLabel({
@@ -423,7 +411,7 @@ function SidebarGroupLabel({
       )}
       {...props}
     />
-  );
+  )
 }
 
 function SidebarGroupAction({
@@ -446,7 +434,7 @@ function SidebarGroupAction({
       )}
       {...props}
     />
-  );
+  )
 }
 
 function SidebarGroupContent({
@@ -460,13 +448,10 @@ function SidebarGroupContent({
       className={cn("w-full text-sm", className)}
       {...props}
     />
-  );
+  )
 }
 
-function SidebarMenu({
-  className,
-  ...props
-}: React.ComponentProps<"ul">) {
+function SidebarMenu({ className, ...props }: React.ComponentProps<"ul">) {
   return (
     <ul
       data-slot="sidebar-menu"
@@ -474,13 +459,10 @@ function SidebarMenu({
       className={cn("flex w-full min-w-0 flex-col gap-1", className)}
       {...props}
     />
-  );
+  )
 }
 
-function SidebarMenuItem({
-  className,
-  ...props
-}: React.ComponentProps<"li">) {
+function SidebarMenuItem({ className, ...props }: React.ComponentProps<"li">) {
   return (
     <li
       data-slot="sidebar-menu-item"
@@ -488,7 +470,7 @@ function SidebarMenuItem({
       className={cn("group/menu-item relative", className)}
       {...props}
     />
-  );
+  )
 }
 
 const sidebarMenuButtonVariants = cva(
@@ -561,7 +543,7 @@ function SidebarMenuButton({
         {...tooltip}
       />
     </Tooltip>
-  );
+  )
 }
 
 function SidebarMenuAction({
@@ -593,7 +575,7 @@ function SidebarMenuAction({
       )}
       {...props}
     />
-  );
+  )
 }
 
 function SidebarMenuBadge({
@@ -615,7 +597,7 @@ function SidebarMenuBadge({
       )}
       {...props}
     />
-  );
+  )
 }
 
 function SidebarMenuSkeleton({
@@ -627,7 +609,7 @@ function SidebarMenuSkeleton({
 }) {
   // Random width between 50 to 90%.
   const width = React.useMemo(() => {
-    return `${Math.floor(Math.random() * 40) + 50}%`;
+    return `${Math.floor(Math.random() * 40) + 50}%`
   }, [])
 
   return (
@@ -653,13 +635,10 @@ function SidebarMenuSkeleton({
         }
       />
     </div>
-  );
+  )
 }
 
-function SidebarMenuSub({
-  className,
-  ...props
-}: React.ComponentProps<"ul">) {
+function SidebarMenuSub({ className, ...props }: React.ComponentProps<"ul">) {
   return (
     <ul
       data-slot="sidebar-menu-sub"
@@ -671,7 +650,7 @@ function SidebarMenuSub({
       )}
       {...props}
     />
-  );
+  )
 }
 
 function SidebarMenuSubItem({
@@ -685,7 +664,7 @@ function SidebarMenuSubItem({
       className={cn("group/menu-sub-item relative", className)}
       {...props}
     />
-  );
+  )
 }
 
 function SidebarMenuSubButton({
@@ -717,7 +696,7 @@ function SidebarMenuSubButton({
       )}
       {...props}
     />
-  );
+  )
 }
 
 export {

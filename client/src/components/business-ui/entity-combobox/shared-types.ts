@@ -201,13 +201,13 @@ export type BaseEntitySelectProps<TValue = ItemValue<unknown>> = {
    * 选中选项时的回调
    * @param value - 被选中的选项值
    */
-  onSelect?: (value: TValue);
+  onSelect?: (value: TValue) => void;
 
   /**
    * 取消选中选项时的回调（多选模式下生效）
    * @param value - 被取消选中的选项值
    */
-  onDeselect?: (value: TValue);
+  onDeselect?: (value: TValue) => void;
 
   /**
    * 清空所有选中值时的回调
@@ -287,10 +287,10 @@ export type ComboboxPopoverProps = {
  * Combobox 回调相关的 Props
  */
 export type ComboboxCallbackProps<TRaw = unknown> = {
-  onSelect?: (value: ItemValue<TRaw>);
-  onDeselect?: (value: ItemValue<TRaw>);
-  onSearch?: (value: string);
+  onSelect?: (value: ItemValue<TRaw>) => void;
+  onDeselect?: (value: ItemValue<TRaw>) => void;
+  onSearch?: (value: string) => void;
   onClear?: () => void;
-  onFocus?: (event: FocusEvent<HTMLElement>);
-  onBlur?: (event: FocusEvent<HTMLElement>);
+  onFocus?: (event: FocusEvent<HTMLElement>) => void;
+  onBlur?: (event: FocusEvent<HTMLElement>) => void;
 };

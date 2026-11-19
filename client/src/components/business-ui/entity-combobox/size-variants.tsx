@@ -246,7 +246,7 @@ export const listItemSubTextVariants = cva(
  */
 export const itemPillVariants = cva(
   [
-    'w-fit gap-1 rounded-full border-0 bg-[#E8E8E9] dark:bg-[#3D3E3E]',
+    'w-fit gap-1 rounded-full border-0 bg-[#E8E8E9] font-normal dark:bg-[#3D3E3E]',
     'pt-px pb-px pl-0.5',
   ],
   {

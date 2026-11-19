@@ -27,7 +27,7 @@ function Slider({
           ? defaultValue
           : [min, max],
     [value, defaultValue, min, max]
-  );
+  )
 
   return (
     <SliderPrimitive.Root
@@ -81,7 +81,7 @@ function Slider({
         />
       ))}
     </SliderPrimitive.Root>
-  );
+  )
 }
 
 export { Slider }

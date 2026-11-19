@@ -19,7 +19,7 @@ function ResizablePanelGroup({
       )}
       {...props}
     />
-  );
+  )
 }
 
 function ResizablePanel({
@@ -50,7 +50,7 @@ function ResizableHandle({
         </div>
       )}
     </ResizablePrimitive.PanelResizeHandle>
-  );
+  )
 }
 
 export { ResizablePanelGroup, ResizablePanel, ResizableHandle }

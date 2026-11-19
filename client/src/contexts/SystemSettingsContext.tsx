@@ -13,7 +13,7 @@ interface SystemSettingsContextValue {
   loading: boolean;
   refreshSettings: () => Promise<void>;
   setSystemName: (name: string) => void;
-  setSystemLogo: (logo: string | null);
+  setSystemLogo: (logo: string | null) => void;
 }
 
 const DEFAULT_SYSTEM_NAME = '人才盘点系统';

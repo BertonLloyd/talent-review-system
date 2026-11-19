@@ -435,7 +435,7 @@ interface IUserDisplayProps {
 ### 使用示例
 
 ```tsx
-import { UserDisplay } from '@components/business-ui/user-display';
+import { UserDisplay } from '@/components/business-ui/user-display';
 
 // 单用户展示 - 使用 ID
 function SingleUserExample() {
@@ -465,7 +465,7 @@ function AvatarOnlyExample() {
   return (
     <UserDisplay
       value={["user-123"]}
-      showLabel="false"
+      showLabel={false}
     />
   );
 }

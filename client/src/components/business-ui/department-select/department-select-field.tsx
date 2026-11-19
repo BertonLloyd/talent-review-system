@@ -53,7 +53,7 @@ export function DepartmentSelectField(props: DepartmentSelectFieldProps) {
 
   const {
     DepartmentSelect: departmentSelectClassName,
-    ...fieldLayoutClassNames,
+    ...fieldLayoutClassNames
   } = classNames ?? {};
   const fieldLayoutStyles = styles ?? {};
 

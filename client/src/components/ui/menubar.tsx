@@ -19,7 +19,7 @@ function Menubar({
       )}
       {...props}
     />
-  );
+  )
 }
 
 function MenubarMenu({
@@ -45,7 +45,7 @@ function MenubarRadioGroup({
 }: React.ComponentProps<typeof MenubarPrimitive.RadioGroup>) {
   return (
     <MenubarPrimitive.RadioGroup data-slot="menubar-radio-group" {...props} />
-  );
+  )
 }
 
 function MenubarTrigger({
@@ -61,7 +61,7 @@ function MenubarTrigger({
       )}
       {...props}
     />
-  );
+  )
 }
 
 function MenubarContent({
@@ -85,7 +85,7 @@ function MenubarContent({
         {...props}
       />
     </MenubarPortal>
-  );
+  )
 }
 
 function MenubarItem({
@@ -132,7 +132,7 @@ function MenubarItem({
       }}
       {...props}
     />
-  );
+  )
 }
 
 function MenubarCheckboxItem({
@@ -182,7 +182,7 @@ function MenubarCheckboxItem({
       </span>
       {children}
     </MenubarPrimitive.CheckboxItem>
-  );
+  )
 }
 
 function MenubarRadioItem({
@@ -230,7 +230,7 @@ function MenubarRadioItem({
       </span>
       {children}
     </MenubarPrimitive.RadioItem>
-  );
+  )
 }
 
 function MenubarLabel({
@@ -250,7 +250,7 @@ function MenubarLabel({
       )}
       {...props}
     />
-  );
+  )
 }
 
 function MenubarSeparator({
@@ -263,7 +263,7 @@ function MenubarSeparator({
       className={cn("bg-border -mx-1 my-1 h-px", className)}
       {...props}
     />
-  );
+  )
 }
 
 function MenubarShortcut({
@@ -279,7 +279,7 @@ function MenubarShortcut({
       )}
       {...props}
     />
-  );
+  )
 }
 
 function MenubarSub({
@@ -309,7 +309,7 @@ function MenubarSubTrigger({
       {children}
       <ChevronRightIcon className="ml-auto h-4 w-4" />
     </MenubarPrimitive.SubTrigger>
-  );
+  )
 }
 
 function MenubarSubContent({
@@ -325,7 +325,7 @@ function MenubarSubContent({
       )}
       {...props}
     />
-  );
+  )
 }
 
 export {

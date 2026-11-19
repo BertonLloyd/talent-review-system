@@ -140,7 +140,7 @@ export interface AdminStats {
   departmentStats: Array<{ department: string; count: number; avgScore: number }>;
 }
 
-export async function getAdminStats(): Promise<UnifiedAdminStats> {
+export async function getAdminStats(): Promise<AdminStats> {
   const res = await axiosForBackend.get(`${BASE}/admin/stats`);
   return res.data;
 }

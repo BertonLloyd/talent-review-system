@@ -74,7 +74,7 @@ export function BaseComboboxList<T>({
       const itemValue = getItemValue(item);
       return getOptionDisabled(itemValue);
     },
-    [getOptionDisabled, getOptionDisabled],
+    [getItemValue, getOptionDisabled],
   );
 
   const hasSearchQuery = debouncedSearch.trim() !== '';
