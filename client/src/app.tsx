@@ -2,7 +2,6 @@ import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import Layout from './components/Layout';
-import './styles/index.css';
 import NotFound from './pages/NotFound/NotFound';
 import LoginPage from './pages/Login/Login';
 import ReviewPage from './pages/Review/ReviewPage';
