@@ -9,7 +9,10 @@ build/
 */build/
 
 # Environment files
+.env
 .env.local
+# Local backup files (e.g. package-lock.json.orig)
+*.orig
 
 # Logs
 npm-debug.log*

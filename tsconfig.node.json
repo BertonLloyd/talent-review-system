@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "importHelpers": true,
+    "incremental": true,
+    "noEmit": false,
+
+    "strict": false,
+    "composite": true,
+    "declaration": true,
+    "removeComments": false,
+
+    "types": ["node"],
+    "baseUrl": ".",
+    "paths": {
+      "@server/*": ["server/*"],
+      "@shared/*": ["shared/*"],
+      "@client/*": ["client/*"]
+    }
+  },
+  "include": ["server", "shared"],
+  "ts-node": { "require": ["tsconfig-paths/register"] }
+}

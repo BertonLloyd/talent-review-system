@@ -65,31 +65,35 @@ cp .env.example .env
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 ```
 
+创建 RLS 角色（用超级用户，必做）：
+
+```bash
+sudo -u postgres psql -d your_database -v APP_ROLE=talent_user \
+  -f scripts/sql/00_roles.sql
+```
+
 执行建表 SQL 初始化数据库结构：
 
 ```bash
-# 方式一：手动执行 SQL
+# 建表
 psql -d your_database -f scripts/sql/01_schema.sql
 
-# 方式二：初始化后导入演示数据（可选，用于功能演示）
+# 可选：导入演示数据
 psql -d your_database -f scripts/sql/02_seed_data.sql
 ```
 
-建表完成后，生成 ORM schema：
+完整自建部署步骤（含 CSRF、基础路径说明）详见 [自建部署指南](docs/self-hosting.md)。
+
+### 5. 构建并启动
 
 ```bash
-npm run gen:db-schema
-```
-
-### 5. 启动开发服务器
-
-```bash
-npm run dev
+npm run build:prod
+node dist/server/main.js
 ```
 
 ### 6. 访问应用
 
-启动后在浏览器中访问应用地址即可使用。
+默认根路径访问 `http://localhost:3000/`，用演示账号登录即可使用。
 
 ## 默认演示账号
 
@@ -153,6 +157,7 @@ npm run dev
 
 ## 文档
 
+- [自建部署指南](docs/self-hosting.md)
 - [管理员使用手册](docs/admin-guide.md)
 - [HR 使用手册](docs/hr-guide.md)
 - [评价人使用手册](docs/reviewer-guide.md)
